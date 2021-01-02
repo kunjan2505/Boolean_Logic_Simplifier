@@ -8,7 +8,7 @@ Roll No. : 1903116
 
 
 
-##Abstract
+##Abstract  
 In this report approach of writing python program for implementation of Quine Mc'Clusky Algorithm is described along with the sample output. This algorithm is widely used in simplifying large boolean expressions. However it is advised that following approach should not be used when number of variables in boolean expression is very large.
 
 Step by step approach
@@ -40,13 +40,15 @@ We store the combined terms obtained from step 2 in the list named group_next. T
 
 We will repeat step 3 through while loop until no more terms can be combined. We will identify this scenario when we get an empty list as group_next at the end of the pass. In this case all terms in group will fall into prime implicants. After appending this terms to prime_implicants list we get final list of prime implicants.
 
-##Step 6: Identifying essential prime implicants:
+##Step 6: Identifying essential prime implicants:  
 
 If a particular minterm is covered by only one prime implicant then that prime implicant is called essential prime implicant. I have defined a function named find_essential_prime_implicatns which iterate through every minterm and count how many prime implicants includes that minterm. If the count is 1 then that particular prime implicant is classified as essential prime implicant. Prime implicants that are not essential are stored in nonessential_prime_implicants. By replacing 1 with related variable and 0 with NOT of related variable we get essential and non-essential prime implicants in variable form.(Here the function print_implicant is doing this conversion in program.) e.g minterm m0 is covered by only {0,2,8,10} (000-0-0) prime implicant so it is classified as essential prime implicant and represented as A'B'C'E'G' in variable form.
 Similarly A'B'C'EG is also essential prime implicant as m5 is covered by only this prime implicant.
 
-##Step 7: Finding smallest subset of non essential prime implicant that covers remaining minterms:
+##Step 7: Finding smallest subset of non essential prime implicant that covers remaining minterms:  
+
 The minterms that are not covered by essential prime implicants are stored in remaining_minterms list. Now we iterate through every subset(starts with 1 member subsets and then 2 members,3,4 and so on..) of non essential prime implicants and find minterms covered by the subset. If it includes all the remaining minterms then it is identified as smallest subset. If we find two such subsets then the set which has minimum number of literals in expansion is considered smallest subset.(This is achieved by function count_literal.) I have defined function named find_minset which do the above procedure. If we don't find smallest subset then it means that all minterms are covered by essential prime implicants. Here smallest set is {A'B'C'FG, A'B'C'DG} which covers remaining minterms {3,9,11} because {0,2,3,5,7,8,10,13,15} are covered by essential prime implicants which are A'B'C'E'G', A'B'C'EG.
  
-##Conclusion
+##Conclusion  
+
 At the end of the whole program we get essential prime implicants and smallest set of non essential prime implicants that covers remaining minterms. By taking OR of every term of above two list we get simplified form of given boolean expression.
